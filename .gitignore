@@ -1,0 +1,4 @@
+*.py[cod]
+*.egg*.mo
+*.pot*.log
+__pycache__/
