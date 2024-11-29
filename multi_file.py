@@ -49,7 +49,7 @@ class MultiFilesWriter(RawIOBase):
 			except Exception as e:
 				self.logger.exception(e)
 
-from threading import Thread, Lock, Event
+from threading import Thread, Event
 from queue import Queue, Empty
 import six
 
