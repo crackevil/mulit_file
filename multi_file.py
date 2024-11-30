@@ -81,13 +81,16 @@ class MultiFilesWriter2(MultiFilesWriter):
 				pass
 
 	def close(self):
-		for q in six.itervalues(self.tasks):
-			q.join()
-		self.tasks = {}
+		# close() must be reentry
+		if self.tasks:
+			for q in six.itervalues(self.tasks):
+				q.join()
+			self.tasks = {}
 		self.thread_stop_event.set()
-		for t in self.executors:
-			t.join()
-		self.executors = []
+		if self.executors:
+			for t in self.executors:
+				t.join()
+			self.executors = []
 		super(MultiFilesWriter2, self).close()
 
 	def flush(self):
